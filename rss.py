@@ -41,7 +41,11 @@ for i in j.data.hacktivity_items.edges:
     fe.published(published_at)
     fe.link(href=report_url)
     a = s.get(report_url + '.json')
-    content = a.json()['vulnerability_information_html']
+    x = a.json()
+    if 'vulnerability_information_html' in x:
+        content = x['vulnerability_information_html']
+    else:
+        content = x['vulnerability_information']
     fe.content('<a href="%s">%s</a><br/>%s' % (report_url, report_url, content))
     fe.title('%s | %s | %s | %s' % (team, reporter, bounty, title))
 
